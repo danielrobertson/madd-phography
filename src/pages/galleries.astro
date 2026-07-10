@@ -123,16 +123,85 @@ const photos = [
 </Layout>
 
 <script>
+	// Filtering choreography: leaving photos twist out, survivors FLIP-glide to their
+	// new masonry slot, and newcomers pop in with a staggered wobble.
 	const buttons = document.querySelectorAll<HTMLButtonElement>("#gallery-filters button");
-	const items = document.querySelectorAll<HTMLElement>("#gallery-grid figure");
+	const items = [...document.querySelectorAll<HTMLElement>("#gallery-grid figure")];
+	const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	const FLUID = "cubic-bezier(0.32, 0.72, 0, 1)";
+	const POP = "cubic-bezier(0.34, 1.56, 0.64, 1)";
+	let busy = false;
+
 	buttons.forEach((btn) => {
-		btn.addEventListener("click", () => {
+		btn.addEventListener("click", async () => {
+			if (busy || btn.getAttribute("aria-pressed") === "true") return;
 			const filter = btn.dataset.filter;
 			buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-			items.forEach((item) => {
-				const show = filter === "all" || item.dataset.tag === filter;
-				item.classList.toggle("hidden", !show);
+			const shows = (el: HTMLElement) => filter === "all" || el.dataset.tag === filter;
+
+			if (reduced) {
+				items.forEach((el) => {
+					el.classList.toggle("hidden", !shows(el));
+					if (shows(el)) el.classList.add("is-visible");
+				});
+				return;
+			}
+			busy = true;
+
+			const visible = items.filter((el) => !el.classList.contains("hidden"));
+			const leaving = visible.filter((el) => !shows(el));
+			const staying = visible.filter(shows);
+			const entering = items.filter((el) => el.classList.contains("hidden") && shows(el));
+
+			// 1. twist the leavers out
+			await Promise.all(
+				leaving.map(
+					(el, k) =>
+						el.animate(
+							[
+								{ transform: "none", opacity: 1 },
+								{ transform: `scale(0.82) rotate(${k % 2 ? 5 : -5}deg)`, opacity: 0 },
+							],
+							{ duration: 240, delay: k * 26, easing: "cubic-bezier(0.55, 0, 0.55, 0.2)", fill: "forwards" },
+						).finished,
+				),
+			);
+
+			// 2. FLIP: measure, relayout, then glide survivors into place
+			const first = new Map(staying.map((el) => [el, el.getBoundingClientRect()]));
+			leaving.forEach((el) => {
+				el.classList.add("hidden");
+				el.getAnimations().forEach((a) => a.cancel());
 			});
+			entering.forEach((el) => {
+				el.classList.remove("hidden");
+				// hidden items may have been skipped by the scroll-reveal observer
+				el.classList.add("is-visible");
+			});
+			staying.forEach((el) => {
+				const f = first.get(el)!;
+				const l = el.getBoundingClientRect();
+				const dx = f.left - l.left;
+				const dy = f.top - l.top;
+				if (dx || dy)
+					el.animate(
+						[{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "none" }],
+						{ duration: 520, easing: FLUID },
+					);
+			});
+
+			// 3. newcomers wobble in, staggered
+			entering.forEach((el, k) => {
+				el.animate(
+					[
+						{ transform: `scale(0.82) rotate(${k % 2 ? -4 : 4}deg)`, opacity: 0 },
+						{ transform: "none", opacity: 1 },
+					],
+					{ duration: 460, delay: 100 + k * 50, easing: POP, fill: "backwards" },
+				);
+			});
+
+			setTimeout(() => (busy = false), Math.max(620, 100 + entering.length * 50 + 460));
 		});
 	});
 </script>

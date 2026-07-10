@@ -12,6 +12,7 @@ import homeTall from "../assets/photos/home-tall.jpg";
 import reviewSunset from "../assets/photos/review-1.jpg";
 import fieldCouple from "../assets/photos/gallery-12.jpg";
 import maddie from "../assets/photos/maddie-1.jpg";
+import maddieWall from "../assets/photos/maddie-2.jpg";
 import tilePortfolio from "../assets/photos/gallery-10.jpg";
 import tilePricing from "../assets/photos/services-couple.jpg";
 import confetti from "../assets/photos/review-3.jpg";
@@ -27,11 +28,12 @@ const strip = [
 const tiles = [
 	{
 		href: "/about",
-		src: maddie,
-		alt: "Maddie sitting on an orange chair holding her camera",
+		src: maddieWall,
+		alt: "Maddie crouching in her studio against a big blank wall",
 		eyebrow: "get to know me",
 		title: "Meet Maddie",
 		note: "that's me!",
+		pos: "object-[50%_72%]",
 	},
 	{
 		href: "/galleries",
@@ -67,13 +69,13 @@ const sessionTypes = [
 		<!-- ============================== hero ============================== -->
 		<section class="relative mx-auto max-w-6xl px-5 pt-16 pb-14 text-center sm:px-10 sm:pt-24 sm:pb-20">
 			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">
-				✳ featured story ✳
+				✳ for the memory-makers ✳
 			</p>
 			<h1
 				class="reveal mx-auto mt-6 max-w-4xl font-display text-[2.6rem] leading-[1.04] font-medium tracking-tight text-balance sm:text-7xl"
 				style="--reveal-delay: 0.08s"
 			>
-				Wedding &amp; elopement photography with an <Scribble kind="ring" color="var(--color-clay)">editorial</Scribble> feel
+				Lifestyle photography with an <Scribble kind="ring" color="var(--color-clay)">editorial</Scribble> feel
 			</h1>
 
 			<!-- handwritten aside -->
@@ -221,7 +223,10 @@ const sessionTypes = [
 									alt={tile.alt}
 									widths={[480, 800]}
 									sizes="(max-width: 768px) 90vw, 30vw"
-									class="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-fluid group-hover:scale-[1.05]"
+									class:list={[
+										"aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-fluid group-hover:scale-[1.05]",
+										tile.pos,
+									]}
 								/>
 								<span class="absolute right-4 bottom-4 rotate-[-3deg] font-hand text-2xl text-paper opacity-0 transition-all duration-500 ease-bounce group-hover:opacity-100 drop-shadow-[0_1px_8px_rgba(44,35,24,0.5)]">
 									{tile.note}
@@ -313,7 +318,7 @@ const sessionTypes = [
 					</p>
 					<div class="reveal mt-10 space-y-3 font-mono text-[11px] tracking-[0.22em] text-ink-soft uppercase" style="--reveal-delay: 0.22s">
 						<p class="flex items-center gap-3">
-							<Doodle name="camera" class="h-4 w-4 text-clay" /> based in DFW · traveling to you
+							<Doodle name="pin" class="h-4 w-4 text-clay" /> based in DFW, TX
 						</p>
 						<a
 							class="flex items-center gap-3 transition-colors duration-500 ease-fluid hover:text-clay"
@@ -321,7 +326,7 @@ const sessionTypes = [
 							target="_blank"
 							rel="noopener"
 						>
-							<Doodle name="heart" class="h-4 w-4 text-clay" /> @maddphotography__
+							<Doodle name="instagram" class="h-4 w-4 text-clay" /> @maddphotography__
 						</a>
 					</div>
 				</div>

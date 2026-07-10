@@ -12,7 +12,7 @@ const { items, class: className = "" } = Astro.props;
 	class:list={["overflow-hidden border-y border-line py-4 select-none", className]}
 	aria-hidden="true"
 >
-	<div class="flex w-max animate-marquee items-center gap-8 pr-8">
+	<div class="flex w-max animate-marquee items-center gap-8 pr-8 will-change-transform">
 		{
 			[0, 1].map(() => (
 				<div class="flex items-center gap-8">

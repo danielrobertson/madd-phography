@@ -146,8 +146,10 @@
 	}
 }
 
-/* ------------------------------- utilities -------------------------------- */
+/* ------------------------------ components -------------------------------- */
+/* layered so plain utilities (bg-*, text-*) can still override these classes */
 
+@layer components {
 /* film-grain overlay, fixed + pointer-events-none for perf */
 .grain::after {
 	content: "";
@@ -182,10 +184,13 @@
 		filter: none;
 		transition: none;
 	}
-	.animate-marquee,
 	.animate-spin-slow,
 	.animate-wiggle {
 		animation: none !important;
+	}
+	/* keep the marquee drifting (it reads as content, not motion) — just slower */
+	.animate-marquee {
+		animation-duration: 64s !important;
 	}
 }
 
@@ -245,4 +250,5 @@
 .sticker:hover {
 	transform: translate(-1.5px, -1.5px) rotate(-1.5deg);
 	box-shadow: 4px 4px 0 0 var(--color-ink);
+}
 }
