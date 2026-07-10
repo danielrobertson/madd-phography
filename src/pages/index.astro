@@ -1,0 +1,421 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import Doodle from "../components/Doodle.astro";
+import Marquee from "../components/Marquee.astro";
+import Scribble from "../components/Scribble.astro";
+
+import homeCouple from "../assets/photos/home-couple.jpg";
+import homeWide from "../assets/photos/home-wide.jpg";
+import homeTall from "../assets/photos/home-tall.jpg";
+import reviewSunset from "../assets/photos/review-1.jpg";
+import fieldCouple from "../assets/photos/gallery-12.jpg";
+import maddie from "../assets/photos/maddie-1.jpg";
+import tilePortfolio from "../assets/photos/gallery-10.jpg";
+import tilePricing from "../assets/photos/services-couple.jpg";
+import confetti from "../assets/photos/review-3.jpg";
+
+const strip = [
+	{ src: homeCouple, alt: "Couple sharing iced coffees at a café table", width: "md:w-[19%]" },
+	{ src: fieldCouple, alt: "Newlyweds walking along a wooden fence in open hills", width: "md:w-[24%]" },
+	{ src: homeTall, alt: "Couple kissing in golden-hour sunlight over a car", width: "md:w-[16%]", mat: true },
+	{ src: homeWide, alt: "Couple embracing in a wide open field at sunset", width: "md:w-[23%]" },
+	{ src: reviewSunset, alt: "Engaged couple laughing together at dusk", width: "md:w-[14%]" },
+];
+
+const tiles = [
+	{
+		href: "/about",
+		src: maddie,
+		alt: "Maddie sitting on an orange chair holding her camera",
+		eyebrow: "get to know me",
+		title: "Meet Maddie",
+		note: "that's me!",
+	},
+	{
+		href: "/galleries",
+		src: tilePortfolio,
+		alt: "Hands in a denim jacket holding paint brushes",
+		eyebrow: "my works",
+		title: "Portfolio",
+		note: "the good stuff",
+	},
+	{
+		href: "/services",
+		src: tilePricing,
+		alt: "Bride and groom smiling under a veil",
+		eyebrow: "investment & info",
+		title: "Pricing",
+		note: "zero surprises",
+	},
+];
+
+const sessionTypes = [
+	"Graduates",
+	"Headshots",
+	"Maternity",
+	"Engagements",
+	"Couples",
+	"Weddings",
+	"Just Because",
+];
+---
+
+<Layout>
+	<main>
+		<!-- ============================== hero ============================== -->
+		<section class="relative mx-auto max-w-6xl px-5 pt-16 pb-14 text-center sm:px-10 sm:pt-24 sm:pb-20">
+			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">
+				✳ featured story ✳
+			</p>
+			<h1
+				class="reveal mx-auto mt-6 max-w-4xl font-display text-[2.6rem] leading-[1.04] font-medium tracking-tight text-balance sm:text-7xl"
+				style="--reveal-delay: 0.08s"
+			>
+				Wedding &amp; elopement photography with an <Scribble kind="ring" color="var(--color-clay)">editorial</Scribble> feel
+			</h1>
+
+			<!-- handwritten aside -->
+			<div
+				class="reveal pointer-events-none absolute top-24 right-2 hidden rotate-6 lg:block"
+				style="--reveal-delay: 0.4s"
+			>
+				<span class="font-hand text-2xl text-clay">...and a lil funky</span>
+				<Doodle name="arrow-curl" class="mx-auto mt-1 h-10 w-10 -scale-x-100 rotate-12 text-clay" />
+			</div>
+			<Doodle
+				name="sparkle"
+				class="reveal absolute top-28 left-8 hidden h-8 w-8 -rotate-12 text-butter lg:block"
+				style="--reveal-delay: 0.5s"
+			/>
+
+			<div class="reveal mt-10 flex flex-wrap items-center justify-center gap-4" style="--reveal-delay: 0.16s">
+				<Button href="/#contact">Let's work together</Button>
+				<Button href="/galleries" variant="outline">See the galleries</Button>
+			</div>
+		</section>
+
+		<!-- =========================== photo strip =========================== -->
+		<section class="relative">
+			<div
+				class="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-6 md:h-[74vh] md:snap-none md:gap-4 md:overflow-visible md:px-4 md:pb-0"
+			>
+				{
+					strip.map((photo, i) => (
+						<div
+							class:list={[
+								"reveal group relative h-[62vh] min-w-[74vw] shrink-0 snap-center overflow-hidden md:h-auto md:min-w-0",
+								photo.width,
+								photo.mat && "photo-mat z-10 md:my-[-1.5rem] md:rotate-[1.6deg]",
+							]}
+							style={`--reveal-delay: ${i * 0.09}s`}
+						>
+							<div class="h-full w-full overflow-hidden">
+								<Image
+									src={photo.src}
+									alt={photo.alt}
+									widths={[480, 800, 1200]}
+									sizes="(max-width: 768px) 74vw, 26vw"
+									loading="eager"
+									class="h-full w-full object-cover transition-transform duration-1000 ease-fluid group-hover:scale-[1.04]"
+								/>
+							</div>
+						</div>
+					))
+				}
+			</div>
+			<span
+				class="pointer-events-none absolute -bottom-4 left-8 hidden -rotate-3 font-hand text-3xl text-ink md:block"
+			>
+				real moments only <span class="text-clay">♡</span>
+			</span>
+		</section>
+
+		<!-- ========================= statement band ========================= -->
+		<section class="mt-16 bg-cream sm:mt-24">
+			<div class="mx-auto max-w-5xl px-5 py-24 text-center sm:px-10 sm:py-36">
+				<div class="reveal relative inline-block">
+					<span class="absolute -top-10 -left-8 font-display text-[7rem] leading-none font-light text-sand select-none sm:-left-24 sm:text-[11rem]"
+						>&amp;</span
+					>
+					<h2 class="relative font-display text-5xl font-medium tracking-tight sm:text-8xl">
+						Timeless <span class="font-light italic">&amp;</span> authentic
+					</h2>
+					<span
+						class="absolute -right-4 -bottom-8 rotate-[-4deg] font-hand text-3xl text-clay sm:-right-16 sm:text-5xl"
+						>...but make it funky</span
+					>
+				</div>
+				<p
+					class="reveal mx-auto mt-14 max-w-md font-mono text-[11px] leading-relaxed tracking-[0.28em] text-ink-soft uppercase sm:text-xs"
+					style="--reveal-delay: 0.15s"
+				>
+					wedding + elopement + lifestyle photography for the memory-makers
+				</p>
+			</div>
+		</section>
+
+		<Marquee
+			items={[
+				"unlimited edits",
+				"no stiff poses",
+				"golden hour",
+				"dance parties",
+				"real connection",
+				"in-between moments",
+			]}
+		/>
+
+		<!-- ============================= intro ============================= -->
+		<section class="mx-auto max-w-7xl px-5 py-24 sm:px-10 sm:py-36">
+			<div class="grid items-center gap-14 md:grid-cols-12 md:gap-8">
+				<div class="reveal relative md:col-span-5">
+					<div class="photo-mat rotate-[-2deg]">
+						<Image
+							src={maddie}
+							alt="Maddie laughing on an orange chair, camera in hand"
+							widths={[480, 800, 1100]}
+							sizes="(max-width: 768px) 90vw, 40vw"
+							class="aspect-[4/5] w-full object-cover"
+						/>
+					</div>
+					<span class="absolute -top-5 -right-3 rotate-12 font-hand text-3xl text-clay">hi, it's me</span>
+					<Doodle name="crown" class="absolute -top-9 left-6 h-10 w-10 -rotate-12 text-butter" />
+				</div>
+				<div class="md:col-span-6 md:col-start-7">
+					<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">the whole point</p>
+					<h2 class="reveal mt-5 font-display text-4xl leading-[1.08] font-medium tracking-tight sm:text-6xl" style="--reveal-delay: 0.08s">
+						All about capturing <Scribble kind="underline" color="var(--color-butter)">real connection</Scribble>
+					</h2>
+					<p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.16s">
+						The laughter, movement, and in-between moments that tell your story naturally. I
+						focus on sessions where you can be yourselves — not stiff poses or forced smiles.
+					</p>
+					<p class="reveal mt-5 max-w-xl text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.22s">
+						I create a comfortable, fun experience that lets genuine emotion shine, and I
+						deliver <strong class="font-semibold text-ink">unlimited edited images</strong> so you
+						never have to choose between favorite moments. From couples and families to milestones and weddings —
+						timeless, heartfelt photos you'll love looking back on for years.
+					</p>
+					<div class="reveal mt-10" style="--reveal-delay: 0.3s">
+						<Button href="/about" variant="outline">Get to know me</Button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ========================= feature tiles ========================= -->
+		<section class="mx-auto max-w-7xl px-5 sm:px-10">
+			<div class="grid gap-10 md:grid-cols-3 md:gap-6">
+				{
+					tiles.map((tile, i) => (
+						<a
+							href={tile.href}
+							class="reveal group block"
+							style={`--reveal-delay: ${i * 0.1}s`}
+						>
+							<div class="relative overflow-hidden">
+								<Image
+									src={tile.src}
+									alt={tile.alt}
+									widths={[480, 800]}
+									sizes="(max-width: 768px) 90vw, 30vw"
+									class="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-fluid group-hover:scale-[1.05]"
+								/>
+								<span class="absolute right-4 bottom-4 rotate-[-3deg] font-hand text-2xl text-paper opacity-0 transition-all duration-500 ease-bounce group-hover:opacity-100 drop-shadow-[0_1px_8px_rgba(44,35,24,0.5)]">
+									{tile.note}
+								</span>
+							</div>
+							<div class="mt-5 flex items-end justify-between border-b border-line pb-4">
+								<div>
+									<p class="font-mono text-[10px] tracking-[0.28em] text-ink-soft uppercase">{tile.eyebrow}</p>
+									<h3 class="mt-2 font-display text-3xl font-medium tracking-tight transition-colors duration-500 ease-fluid group-hover:text-clay">
+										{tile.title}
+									</h3>
+								</div>
+								<span class="mb-1 flex h-9 w-9 items-center justify-center rounded-full border border-line transition-all duration-500 ease-bounce group-hover:border-clay group-hover:bg-clay group-hover:text-paper">
+									<svg viewBox="0 0 16 16" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M3 13 13 3M5.5 3H13v7.5" />
+									</svg>
+								</span>
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- ======================== kind words teaser ======================== -->
+		<section class="mx-auto max-w-6xl px-5 py-24 sm:px-10 sm:py-36">
+			<div class="relative rounded-[2rem] bg-sand/60 p-2">
+				<div class="rounded-[calc(2rem-0.5rem)] bg-cream px-6 py-16 text-center sm:px-16 sm:py-20">
+					<Doodle name="burst" class="reveal mx-auto h-8 w-8 text-clay" />
+					<blockquote
+						class="reveal mx-auto mt-8 max-w-2xl font-display text-2xl leading-snug font-normal tracking-tight text-balance sm:text-4xl"
+						style="--reveal-delay: 0.08s"
+					>
+						“She has an incredible creative eye for shooting beautiful photos. I seriously need
+						another reason to book her because <span class="text-clay">I love her!</span>”
+					</blockquote>
+					<p class="reveal mt-8 font-mono text-[11px] tracking-[0.28em] text-ink-soft uppercase" style="--reveal-delay: 0.16s">
+						maryssa — UTEP graduate
+					</p>
+					<div class="reveal mt-10" style="--reveal-delay: 0.24s">
+						<Button href="/reviews" variant="outline">Read the kind words</Button>
+					</div>
+				</div>
+				<div class="photo-mat absolute -top-8 right-6 hidden w-36 rotate-[5deg] transition-transform duration-700 ease-bounce hover:rotate-[2deg] md:block">
+					<Image
+						src={confetti}
+						alt="Graduate laughing as confetti falls"
+						widths={[320]}
+						sizes="9rem"
+						class="aspect-[4/5] w-full object-cover"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<!-- ========================= session types ========================= -->
+		<section class="mx-auto max-w-5xl px-5 text-center sm:px-10">
+			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">what shall we shoot?</p>
+			<div class="reveal mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4" style="--reveal-delay: 0.1s">
+				{
+					sessionTypes.map((type, i) => (
+						<a
+							href="/#contact"
+							class="sticker font-mono text-[11px] font-bold tracking-[0.14em] uppercase sm:text-xs"
+							style={`transform: rotate(${[-2, 1.5, -1, 2, -1.5, 1, -2.5][i % 7]}deg)`}
+						>
+							{i === sessionTypes.length - 1 && <Doodle name="heart" class="h-3.5 w-3.5 text-clay" />}
+							{type}
+						</a>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- =========================== contact =========================== -->
+		<section id="contact" class="mx-auto max-w-7xl scroll-mt-10 px-5 py-24 sm:px-10 sm:py-36">
+			<div class="grid gap-14 md:grid-cols-2 md:gap-10">
+				<div>
+					<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">say hello</p>
+					<h2 class="reveal mt-5 font-display text-5xl leading-[1.02] font-medium tracking-tight sm:text-7xl" style="--reveal-delay: 0.08s">
+						Let's work <span class="relative inline-block">
+							together
+							<Doodle name="arrow-swoosh" class="absolute top-1/2 -right-16 hidden h-12 w-12 -translate-y-1/2 text-clay lg:block" />
+						</span>
+					</h2>
+					<p class="reveal mt-8 max-w-md text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.16s">
+						Tell me everything — the vibe, the people, the plan (or lack of one). I'll get back to
+						you with availability and next steps.
+					</p>
+					<div class="reveal mt-10 space-y-3 font-mono text-[11px] tracking-[0.22em] text-ink-soft uppercase" style="--reveal-delay: 0.22s">
+						<p class="flex items-center gap-3">
+							<Doodle name="camera" class="h-4 w-4 text-clay" /> based in DFW · traveling to you
+						</p>
+						<a
+							class="flex items-center gap-3 transition-colors duration-500 ease-fluid hover:text-clay"
+							href="https://www.instagram.com/maddphotography__"
+							target="_blank"
+							rel="noopener"
+						>
+							<Doodle name="heart" class="h-4 w-4 text-clay" /> @maddphotography__
+						</a>
+					</div>
+				</div>
+
+				<form
+					id="contact-form"
+					class="reveal rounded-[2rem] bg-sand/60 p-2"
+					style="--reveal-delay: 0.15s"
+				>
+					<div class="space-y-7 rounded-[calc(2rem-0.5rem)] bg-paper px-6 py-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)] sm:px-10">
+						<div class="grid gap-7 sm:grid-cols-2">
+							<label class="block">
+								<span class="font-mono text-[10px] tracking-[0.24em] text-ink-soft uppercase">Your name *</span>
+								<input
+									type="text"
+									name="name"
+									required
+									class="mt-2 w-full border-b border-line bg-transparent pb-2 text-ink transition-colors duration-500 ease-fluid outline-none focus:border-clay"
+								/>
+							</label>
+							<label class="block">
+								<span class="font-mono text-[10px] tracking-[0.24em] text-ink-soft uppercase">Email address *</span>
+								<input
+									type="email"
+									name="email"
+									required
+									class="mt-2 w-full border-b border-line bg-transparent pb-2 text-ink transition-colors duration-500 ease-fluid outline-none focus:border-clay"
+								/>
+							</label>
+						</div>
+						<div class="grid gap-7 sm:grid-cols-2">
+							<label class="block">
+								<span class="font-mono text-[10px] tracking-[0.24em] text-ink-soft uppercase">Phone number *</span>
+								<input
+									type="tel"
+									name="phone"
+									required
+									class="mt-2 w-full border-b border-line bg-transparent pb-2 text-ink transition-colors duration-500 ease-fluid outline-none focus:border-clay"
+								/>
+							</label>
+							<label class="block">
+								<span class="font-mono text-[10px] tracking-[0.24em] text-ink-soft uppercase">Session type *</span>
+								<select
+									name="session"
+									required
+									class="mt-2 w-full border-b border-line bg-transparent pb-2 text-ink transition-colors duration-500 ease-fluid outline-none focus:border-clay"
+								>
+									<option value="" disabled selected>Pick one</option>
+									{sessionTypes.map((t) => <option value={t}>{t}</option>)}
+								</select>
+							</label>
+						</div>
+						<label class="block">
+							<span class="font-mono text-[10px] tracking-[0.24em] text-ink-soft uppercase">Tell me everything! *</span>
+							<textarea
+								name="message"
+								rows="4"
+								required
+								class="mt-2 w-full resize-none border-b border-line bg-transparent pb-2 text-ink transition-colors duration-500 ease-fluid outline-none focus:border-clay"
+							></textarea>
+						</label>
+						<button
+							type="submit"
+							class="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-ink py-2.5 pr-2.5 pl-6 font-mono text-[12px] font-bold tracking-[0.18em] text-paper uppercase transition-all duration-500 ease-fluid hover:bg-clay active:scale-[0.98]"
+						>
+							Send message
+							<span class="flex h-8 w-8 items-center justify-center rounded-full bg-paper/15 transition-transform duration-500 ease-bounce group-hover:-translate-y-[1px] group-hover:translate-x-1 group-hover:scale-105">
+								<svg viewBox="0 0 16 16" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M3 13 13 3M5.5 3H13v7.5"></path>
+								</svg>
+							</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	// no backend yet: hand the enquiry off as a prefilled email
+	const form = document.getElementById("contact-form") as HTMLFormElement | null;
+	form?.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const data = new FormData(form);
+		const subject = `Photo session enquiry — ${data.get("session")}`;
+		const body = [
+			`Name: ${data.get("name")}`,
+			`Email: ${data.get("email")}`,
+			`Phone: ${data.get("phone")}`,
+			`Session type: ${data.get("session")}`,
+			"",
+			`${data.get("message")}`,
+		].join("\n");
+		window.location.href = `mailto:hello@maddphotography.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+	});
+</script>

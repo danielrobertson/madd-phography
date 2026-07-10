@@ -1,0 +1,153 @@
+---
+import Doodle from "./Doodle.astro";
+
+const links = [
+	{ href: "/galleries", label: "Galleries" },
+	{ href: "/services", label: "Services" },
+	{ href: "/reviews", label: "Reviews" },
+	{ href: "/about", label: "About Me" },
+];
+const left = links.slice(0, 2);
+const right = links.slice(2);
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => path === href;
+---
+
+<header class="relative z-40">
+	<div class="mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 py-5 sm:px-10 sm:py-6">
+		<!-- left links -->
+		<nav class="hidden items-center gap-8 font-mono text-[11px] uppercase tracking-[0.28em] text-ink-soft md:flex">
+			{
+				left.map((l) => (
+					<a
+						href={l.href}
+						aria-current={isActive(l.href) ? "page" : undefined}
+						class:list={[
+							"transition-colors duration-500 ease-fluid hover:text-clay",
+							isActive(l.href) && "text-clay",
+						]}
+					>
+						{l.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<!-- wordmark -->
+		<a href="/" class="group col-start-2 flex items-baseline gap-2.5 select-none">
+			<span class="font-display text-[1.9rem] font-medium tracking-tight sm:text-4xl">Madd</span>
+			<Doodle
+				name="star"
+				class="h-4 w-4 self-center text-clay transition-transform duration-700 ease-bounce group-hover:rotate-180 group-hover:scale-125"
+			/>
+			<span class="font-display text-[1.9rem] font-light tracking-tight sm:text-4xl">Photography</span>
+		</a>
+
+		<!-- right links -->
+		<nav class="hidden items-center justify-end gap-8 font-mono text-[11px] uppercase tracking-[0.28em] text-ink-soft md:flex">
+			{
+				right.map((l) => (
+					<a
+						href={l.href}
+						aria-current={isActive(l.href) ? "page" : undefined}
+						class:list={[
+							"transition-colors duration-500 ease-fluid hover:text-clay",
+							isActive(l.href) && "text-clay",
+						]}
+					>
+						{l.label}
+					</a>
+				))
+			}
+			<a href="/#contact" class="sticker font-mono text-[11px] font-bold tracking-[0.2em] text-ink">
+				BOOK NOW
+			</a>
+		</nav>
+
+		<!-- mobile hamburger -->
+		<button
+			id="nav-toggle"
+			class="col-start-3 justify-self-end md:hidden"
+			aria-label="Open menu"
+			aria-expanded="false"
+			aria-controls="nav-overlay"
+		>
+			<span class="relative block h-5 w-8">
+				<span
+					class="nav-bar absolute top-1 left-0 h-[2px] w-full rounded-full bg-ink transition-all duration-500 ease-fluid"
+				></span>
+				<span
+					class="nav-bar absolute bottom-1 left-0 h-[2px] w-full rounded-full bg-ink transition-all duration-500 ease-fluid"
+				></span>
+			</span>
+		</button>
+	</div>
+
+	<!-- microcopy row -->
+	<div
+		class="mx-auto flex items-center justify-between border-y border-line px-5 py-2.5 font-mono text-[10px] tracking-[0.18em] text-ink-soft uppercase sm:px-10 sm:text-[11px]"
+	>
+		<span>wedding + lifestyle photographer</span>
+		<span class="hidden items-center gap-2 sm:flex">
+			<Doodle name="camera" class="h-3.5 w-3.5" />
+			editorial feel, funky heart
+		</span>
+		<span>based in DFW, TX</span>
+	</div>
+
+	<!-- mobile overlay -->
+	<div
+		id="nav-overlay"
+		class="pointer-events-none invisible fixed inset-0 z-50 flex flex-col items-center justify-center gap-2 bg-paper/85 opacity-0 backdrop-blur-2xl transition-[opacity,visibility] duration-500 ease-fluid md:hidden"
+	>
+		<button
+			id="nav-close"
+			class="absolute top-6 right-6 flex h-11 w-11 items-center justify-center rounded-full border border-line"
+			aria-label="Close menu"
+		>
+			<span class="relative block h-4 w-4">
+				<span class="absolute top-1/2 left-0 h-[2px] w-full rotate-45 rounded-full bg-ink"></span>
+				<span class="absolute top-1/2 left-0 h-[2px] w-full -rotate-45 rounded-full bg-ink"></span>
+			</span>
+		</button>
+		{
+			[{ href: "/", label: "Home" }, ...links].map((l, i) => (
+				<a
+					href={l.href}
+					class="nav-overlay-link font-display text-5xl font-medium text-ink opacity-0 transition-all duration-700 ease-fluid hover:text-clay"
+					style={`transition-delay: ${80 + i * 70}ms; transform: translateY(3rem)`}
+				>
+					{l.label}
+				</a>
+			))
+		}
+		<a
+			href="/#contact"
+			class="nav-overlay-link sticker mt-6 font-mono text-xs font-bold tracking-[0.2em] opacity-0 transition-all duration-700 ease-fluid"
+			style="transition-delay: 480ms; transform: translateY(3rem)"
+		>
+			BOOK NOW
+		</a>
+	</div>
+</header>
+
+<script>
+	const toggle = document.getElementById("nav-toggle");
+	const close = document.getElementById("nav-close");
+	const overlay = document.getElementById("nav-overlay");
+	const setOpen = (open: boolean) => {
+		if (!overlay || !toggle) return;
+		toggle.setAttribute("aria-expanded", String(open));
+		overlay.classList.toggle("pointer-events-none", !open);
+		overlay.classList.toggle("invisible", !open);
+		overlay.classList.toggle("opacity-0", !open);
+		document.body.style.overflow = open ? "hidden" : "";
+		overlay.querySelectorAll<HTMLElement>(".nav-overlay-link").forEach((el) => {
+			el.style.opacity = open ? "1" : "0";
+			el.style.transform = open ? "translateY(0)" : "translateY(3rem)";
+		});
+	};
+	toggle?.addEventListener("click", () => setOpen(true));
+	close?.addEventListener("click", () => setOpen(false));
+	overlay?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+</script>

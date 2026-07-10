@@ -1,0 +1,32 @@
+---
+// Pill CTA with the nested arrow-in-circle trailing icon.
+interface Props {
+	href: string;
+	variant?: "solid" | "outline";
+	class?: string;
+}
+const { href, variant = "solid", class: className = "" } = Astro.props;
+---
+
+<a
+	href={href}
+	class:list={[
+		"group inline-flex items-center gap-3 rounded-full py-2.5 pr-2.5 pl-6 font-mono text-[12px] font-bold tracking-[0.18em] uppercase transition-all duration-500 ease-fluid active:scale-[0.98]",
+		variant === "solid"
+			? "bg-ink text-paper hover:bg-clay"
+			: "border-[1.5px] border-ink text-ink hover:border-clay hover:text-clay",
+		className,
+	]}
+>
+	<slot />
+	<span
+		class:list={[
+			"flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-500 ease-bounce group-hover:-translate-y-[1px] group-hover:translate-x-1 group-hover:scale-105",
+			variant === "solid" ? "bg-paper/15" : "bg-ink/5",
+		]}
+	>
+		<svg viewBox="0 0 16 16" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M3 13 13 3M5.5 3H13v7.5"></path>
+		</svg>
+	</span>
+</a>

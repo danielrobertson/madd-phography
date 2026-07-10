@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import Doodle from "../components/Doodle.astro";
+import Scribble from "../components/Scribble.astro";
+
+import g01 from "../assets/photos/gallery-01.jpg";
+import g02 from "../assets/photos/gallery-02.jpg";
+import g03 from "../assets/photos/gallery-03.jpg";
+import g04 from "../assets/photos/gallery-04.jpg";
+import g05 from "../assets/photos/gallery-05.jpg";
+import g06 from "../assets/photos/gallery-06.jpg";
+import g07 from "../assets/photos/gallery-07.jpg";
+import g08 from "../assets/photos/gallery-08.jpg";
+import g09 from "../assets/photos/gallery-09.jpg";
+import g10 from "../assets/photos/gallery-10.jpg";
+import g11 from "../assets/photos/gallery-11.jpg";
+import g12 from "../assets/photos/gallery-12.jpg";
+import g13 from "../assets/photos/gallery-13.jpg";
+import extraCouple from "../assets/photos/home-couple.jpg";
+import extraGrad from "../assets/photos/review-2.jpg";
+import extraMaternity from "../assets/photos/review-6.jpg";
+
+const filters = ["all", "weddings", "couples", "family", "graduation", "portraits"];
+
+const photos = [
+	{ src: g12, tag: "weddings", alt: "Newlyweds walking along a fence line in green hills", ratio: "aspect-[3/4]", caption: "the vows were perfect" },
+	{ src: extraGrad, tag: "graduation", alt: "Graduate in a white dress and cap at an ornate door", ratio: "aspect-[3/4]" },
+	{ src: g02, tag: "family", alt: "Mother and baby playing on a picnic blanket, black and white", ratio: "aspect-square" },
+	{ src: extraCouple, tag: "couples", alt: "Couple with iced coffees outside a café", ratio: "aspect-[3/4]", caption: "coffee date, but make it art" },
+	{ src: g03, tag: "graduation", alt: "Simmons university sign in front of the main building", ratio: "aspect-[3/2]" },
+	{ src: g01, tag: "weddings", alt: "Bride holding a Mrs. purse, black and white", ratio: "aspect-[3/2]" },
+	{ src: g10, tag: "portraits", alt: "Nail artist in a denim jacket holding brushes", ratio: "aspect-[3/4]" },
+	{ src: g04, tag: "family", alt: "Family picnic with fruit and flowers on the lawn", ratio: "aspect-[3/2]" },
+	{ src: g06, tag: "graduation", alt: "Graduate in gown by a cathedral door, black and white", ratio: "aspect-[3/4]", caption: "she did THAT" },
+	{ src: g05, tag: "portraits", alt: "Woman reading on a park bench under a sprawling tree", ratio: "aspect-[3/2]" },
+	{ src: extraMaternity, tag: "couples", alt: "Maternity portrait with a flowing red dress by the river", ratio: "aspect-[3/4]" },
+	{ src: g09, tag: "family", alt: "Mother kissing baby on a blanket, black and white", ratio: "aspect-[3/4]" },
+	{ src: g08, tag: "weddings", alt: "Hand-painted welcome sign in a ballroom", ratio: "aspect-square" },
+	{ src: g11, tag: "graduation", alt: "Graduate with a green jacket against a brick wall", ratio: "aspect-[3/4]" },
+	{ src: g07, tag: "family", alt: "Mom feeding a toddler in a garden, black and white", ratio: "aspect-[3/4]" },
+	{ src: g13, tag: "portraits", alt: "Sculpted red sandstone waves of Antelope Canyon", ratio: "aspect-[3/2]", caption: "location scouting counts" },
+];
+---
+
+<Layout title="Galleries — Madd Photography">
+	<main>
+		<!-- hero -->
+		<section class="relative mx-auto max-w-6xl px-5 pt-16 pb-10 text-center sm:px-10 sm:pt-24">
+			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">✳ my works ✳</p>
+			<h1
+				class="reveal mx-auto mt-6 font-display text-5xl leading-[1.04] font-medium tracking-tight sm:text-8xl"
+				style="--reveal-delay: 0.08s"
+			>
+				The <Scribble kind="underline" color="var(--color-butter)">good</Scribble> stuff
+			</h1>
+			<p class="reveal mx-auto mt-8 max-w-md text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.16s">
+				Real sessions, real people, zero forced smiles. Filter by the kind of magic you're after.
+			</p>
+		</section>
+
+		<!-- filters -->
+		<section class="mx-auto max-w-5xl px-5 pb-12 sm:px-10">
+			<div class="reveal flex flex-wrap items-center justify-center gap-3" id="gallery-filters">
+				{
+					filters.map((f, i) => (
+						<button
+							type="button"
+							data-filter={f}
+							aria-pressed={f === "all" ? "true" : "false"}
+							class="sticker cursor-pointer font-mono text-[11px] font-bold tracking-[0.14em] uppercase aria-pressed:bg-ink aria-pressed:text-paper"
+							style={`transform: rotate(${[-1.5, 1, -1, 1.5, -2, 1][i % 6]}deg)`}
+						>
+							{f}
+						</button>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- masonry grid -->
+		<section class="mx-auto max-w-7xl px-5 sm:px-10">
+			<div id="gallery-grid" class="columns-2 gap-4 md:columns-3 md:gap-5">
+				{
+					photos.map((photo, i) => (
+						<figure
+							class="reveal group relative mb-4 break-inside-avoid overflow-hidden md:mb-5"
+							data-tag={photo.tag}
+							style={`--reveal-delay: ${(i % 3) * 0.08}s`}
+						>
+							<Image
+								src={photo.src}
+								alt={photo.alt}
+								widths={[480, 800, 1100]}
+								sizes="(max-width: 768px) 46vw, 30vw"
+								class:list={[
+									photo.ratio,
+									"w-full object-cover transition-transform duration-1000 ease-fluid group-hover:scale-[1.04]",
+								]}
+							/>
+							<figcaption class="pointer-events-none absolute inset-0 flex items-end justify-between gap-2 bg-gradient-to-t from-ink/45 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 ease-fluid group-hover:opacity-100">
+								<span class="font-mono text-[10px] tracking-[0.22em] text-paper uppercase">{photo.tag}</span>
+								{photo.caption && <span class="rotate-[-2deg] font-hand text-xl text-paper">{photo.caption}</span>}
+							</figcaption>
+						</figure>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- cta -->
+		<section class="mx-auto max-w-4xl px-5 py-24 text-center sm:px-10 sm:py-32">
+			<Doodle name="camera" class="reveal mx-auto h-10 w-10 text-clay" />
+			<h2 class="reveal mt-6 font-display text-4xl font-medium tracking-tight sm:text-6xl" style="--reveal-delay: 0.08s">
+				Your story could be next
+			</h2>
+			<div class="reveal mt-10" style="--reveal-delay: 0.16s">
+				<Button href="/#contact">Let's work together</Button>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	const buttons = document.querySelectorAll<HTMLButtonElement>("#gallery-filters button");
+	const items = document.querySelectorAll<HTMLElement>("#gallery-grid figure");
+	buttons.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const filter = btn.dataset.filter;
+			buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+			items.forEach((item) => {
+				const show = filter === "all" || item.dataset.tag === filter;
+				item.classList.toggle("hidden", !show);
+			});
+		});
+	});
+</script>

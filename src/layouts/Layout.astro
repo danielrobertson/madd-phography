@@ -1,0 +1,64 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Madd Photography — Wedding & Elopement Photography With An Editorial Feel",
+	description = "Maddphotography captures real connection — the laughter, movement, and in-between moments. Wedding, elopement, and lifestyle photography based in DFW.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link
+			rel="preload"
+			href="/fonts/Kage-Medium.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/GeneralSans-Variable.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<title>{title}</title>
+	</head>
+	<body class="grain min-h-[100dvh] overflow-x-clip bg-paper text-ink">
+		<Nav />
+		<slot />
+		<Footer />
+
+		<script>
+			// scroll-reveal: heavy fade-up resolved once per element
+			const observer = new IntersectionObserver(
+				(entries) => {
+					for (const entry of entries) {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("is-visible");
+							observer.unobserve(entry.target);
+						}
+					}
+				},
+				{ threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+			);
+			document
+				.querySelectorAll(".reveal")
+				.forEach((el) => observer.observe(el));
+		</script>
+	</body>
+</html>

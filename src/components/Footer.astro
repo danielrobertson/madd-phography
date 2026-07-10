@@ -1,0 +1,41 @@
+---
+import Doodle from "./Doodle.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-28 border-t border-line bg-cream sm:mt-40">
+	<div class="mx-auto max-w-7xl px-5 pt-16 pb-10 sm:px-10">
+		<div class="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
+			<div>
+				<p class="font-mono text-[11px] tracking-[0.28em] text-ink-soft uppercase">
+					let's make something worth framing
+				</p>
+				<p class="mt-4 font-display text-5xl font-medium tracking-tight sm:text-7xl">
+					Madd Photography <Doodle name="flash" class="inline h-8 w-8 align-baseline text-clay sm:h-11 sm:w-11" />
+				</p>
+			</div>
+			<nav class="flex flex-col gap-2 font-mono text-[11px] tracking-[0.24em] uppercase sm:items-end">
+				<a class="transition-colors duration-500 ease-fluid hover:text-clay" href="/galleries">Galleries</a>
+				<a class="transition-colors duration-500 ease-fluid hover:text-clay" href="/services">Services</a>
+				<a class="transition-colors duration-500 ease-fluid hover:text-clay" href="/reviews">Reviews</a>
+				<a class="transition-colors duration-500 ease-fluid hover:text-clay" href="/about">About Me</a>
+				<a
+					class="transition-colors duration-500 ease-fluid hover:text-clay"
+					href="https://www.instagram.com/maddphotography__"
+					target="_blank"
+					rel="noopener">Instagram ↗</a
+				>
+			</nav>
+		</div>
+		<div
+			class="mt-14 flex flex-col items-start justify-between gap-3 border-t border-line pt-6 font-mono text-[10px] tracking-[0.18em] text-ink-soft uppercase sm:flex-row sm:items-center sm:text-[11px]"
+		>
+			<span>© {year} maddphotography</span>
+			<span class="font-hand text-lg normal-case tracking-normal text-ink-soft"
+				>fueled by iced shaken espresso ☺</span
+			>
+			<span>el paso raised · DFW based</span>
+		</div>
+	</div>
+</footer>

@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+/* ---------------------------------- fonts ---------------------------------- */
+
+@font-face {
+	font-family: "Kage";
+	src: url("/fonts/Kage-Light.woff2") format("woff2");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Kage";
+	src: url("/fonts/Kage-Normal.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Kage";
+	src: url("/fonts/Kage-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Kage";
+	src: url("/fonts/Kage-DemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Kage";
+	src: url("/fonts/Kage-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Kage";
+	src: url("/fonts/Kage-Black.woff2") format("woff2");
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "General Sans";
+	src: url("/fonts/GeneralSans-Variable.woff2") format("woff2");
+	font-weight: 200 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Space Mono";
+	src: url("/fonts/SpaceMono-400.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Space Mono";
+	src: url("/fonts/SpaceMono-400-italic.woff2") format("woff2");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Space Mono";
+	src: url("/fonts/SpaceMono-700.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Caveat";
+	src: url("/fonts/Caveat-400-700.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* ---------------------------------- theme ---------------------------------- */
+
+@theme {
+	--color-paper: #faf6ed;
+	--color-cream: #f3ebdb;
+	--color-sand: #e9dfc9;
+	--color-ink: #2c2318;
+	--color-ink-soft: #6b5f4e;
+	--color-clay: #bc5433;
+	--color-clay-deep: #a24225;
+	--color-butter: #dfa63c;
+	--color-line: rgb(44 35 24 / 0.12);
+
+	--font-display: "Kage", "Georgia", serif;
+	--font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-mono: "Space Mono", ui-monospace, monospace;
+	--font-hand: "Caveat", "Comic Sans MS", cursive;
+
+	--ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+	--ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	--animate-marquee: marquee 32s linear infinite;
+	--animate-spin-slow: spin 14s linear infinite;
+	--animate-wiggle: wiggle 5s ease-in-out infinite;
+
+	@keyframes marquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
+	}
+	@keyframes wiggle {
+		0%,
+		100% {
+			transform: rotate(-3deg);
+		}
+		50% {
+			transform: rotate(3deg);
+		}
+	}
+}
+
+/* ---------------------------------- base ---------------------------------- */
+
+@layer base {
+	::selection {
+		background: var(--color-clay);
+		color: var(--color-paper);
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		background: var(--color-paper);
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+		font-weight: 380;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+}
+
+/* ------------------------------- utilities -------------------------------- */
+
+/* film-grain overlay, fixed + pointer-events-none for perf */
+.grain::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: 60;
+	pointer-events: none;
+	opacity: 0.4;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* scroll reveal: resolved by IntersectionObserver in Layout */
+.reveal {
+	opacity: 0;
+	transform: translateY(2.75rem);
+	filter: blur(6px);
+	transition:
+		opacity 0.9s var(--ease-fluid),
+		transform 0.9s var(--ease-fluid),
+		filter 0.9s var(--ease-fluid);
+	transition-delay: var(--reveal-delay, 0s);
+}
+.reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+	filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+	.reveal {
+		opacity: 1;
+		transform: none;
+		filter: none;
+		transition: none;
+	}
+	.animate-marquee,
+	.animate-spin-slow,
+	.animate-wiggle {
+		animation: none !important;
+	}
+}
+
+/* hand-drawn scribble oval around a word (like the IG post) */
+.scribble-ring {
+	position: relative;
+	display: inline-block;
+}
+.scribble-ring > svg {
+	position: absolute;
+	inset: -0.35em -0.45em;
+	width: calc(100% + 0.9em);
+	height: calc(100% + 0.7em);
+	pointer-events: none;
+}
+
+/* wobbly underline */
+.scribble-under {
+	position: relative;
+	display: inline-block;
+}
+.scribble-under > svg {
+	position: absolute;
+	left: -2%;
+	bottom: -0.28em;
+	width: 104%;
+	height: 0.42em;
+	pointer-events: none;
+}
+
+/* photo frame: cream mat + soft ambient shadow, like a print */
+.photo-mat {
+	background: var(--color-paper);
+	padding: 0.55rem;
+	box-shadow:
+		0 1px 2px rgb(44 35 24 / 0.06),
+		0 12px 32px -8px rgb(44 35 24 / 0.14),
+		0 32px 64px -24px rgb(44 35 24 / 0.18);
+}
+
+/* sticker chip */
+.sticker {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5ch;
+	border: 1.5px solid var(--color-ink);
+	border-radius: 999px;
+	padding: 0.45rem 1.1rem;
+	box-shadow: 2.5px 2.5px 0 0 var(--color-ink);
+	background: var(--color-paper);
+	transition:
+		transform 0.45s var(--ease-bounce),
+		box-shadow 0.45s var(--ease-bounce),
+		background-color 0.45s var(--ease-fluid),
+		color 0.45s var(--ease-fluid);
+}
+.sticker:hover {
+	transform: translate(-1.5px, -1.5px) rotate(-1.5deg);
+	box-shadow: 4px 4px 0 0 var(--color-ink);
+}

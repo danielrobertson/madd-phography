@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import Doodle from "../components/Doodle.astro";
+import Scribble from "../components/Scribble.astro";
+
+import sunsetCouple from "../assets/photos/review-1.jpg";
+import gradDoor from "../assets/photos/review-2.jpg";
+import gradConfetti from "../assets/photos/review-3.jpg";
+import fistBump from "../assets/photos/review-4.jpg";
+import redShirt from "../assets/photos/review-5.jpg";
+
+const testimonials = [
+	{
+		name: "Aissis + Caesar",
+		quote:
+			"Maddie did an amazing job! We were so happy with our pictures + received many compliments. Can't wait for our next session!",
+		photo: sunsetCouple,
+		alt: "Couple leaning close at sunset by the rocks",
+		note: "repeat clients!",
+		rotate: "md:rotate-[-2deg]",
+	},
+	{
+		name: "Maryssa, UTEP graduate",
+		quote:
+			"I highly recommend Madd Photography for all your photography needs! She has an incredible creative eye for shooting beautiful photos. I had so much fun working with her. I seriously need another reason to book her for something because I LOVE HER!",
+		photo: gradDoor,
+		alt: "Graduate posing in front of an ornate painted door",
+		note: "the creative eye",
+		rotate: "md:rotate-[1.8deg]",
+	},
+	{
+		name: "Mason, Arkansas State graduate",
+		quote:
+			"Booking with Madd Photography is CRUCIAL for all your photography needs! Her fun, energetic, charismatic personality will make you feel COMFORTABLE in front of the camera! Book now!",
+		photo: redShirt,
+		alt: "Graduate in a red shirt out on a desert trail",
+		note: "zero awkwardness",
+		rotate: "md:rotate-[-1.5deg]",
+	},
+	{
+		name: "Espy, Abilene Christian graduate",
+		quote:
+			"10/10 recommend!!! Love the above & beyond work that she put into getting the PERFECT shot!",
+		photo: gradConfetti,
+		alt: "Graduate laughing in a confetti shower",
+		note: "10/10 !!!",
+		rotate: "md:rotate-[2deg]",
+	},
+];
+---
+
+<Layout title="Reviews — Madd Photography">
+	<main>
+		<!-- hero -->
+		<section class="relative mx-auto max-w-6xl px-5 pt-16 pb-16 text-center sm:px-10 sm:pt-24">
+			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">✳ the receipts ✳</p>
+			<h1
+				class="reveal mx-auto mt-6 font-display text-5xl leading-[1.04] font-medium tracking-tight sm:text-8xl"
+				style="--reveal-delay: 0.08s"
+			>
+				Kind <Scribble kind="ring" color="var(--color-clay)">words</Scribble>
+			</h1>
+			<p class="reveal mx-auto mt-8 max-w-md text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.16s">
+				Don't take my word for it — here's what the memory-makers themselves have to say.
+			</p>
+			<div class="photo-mat absolute top-24 right-4 hidden w-32 rotate-[6deg] xl:block">
+				<Image
+					src={fistBump}
+					alt="Close-up fist bump between photographer and client"
+					widths={[320]}
+					sizes="8rem"
+					class="aspect-[3/4] w-full object-cover"
+				/>
+				<p class="pt-2 pb-1 text-center font-hand text-lg text-ink">teamwork ✕ dream work</p>
+			</div>
+		</section>
+
+		<!-- testimonials -->
+		<section class="mx-auto max-w-6xl space-y-20 px-5 pb-10 sm:px-10 sm:space-y-28">
+			{
+				testimonials.map((t, i) => (
+					<figure
+						class:list={[
+							"grid items-center gap-10 md:grid-cols-12",
+							i % 2 === 1 && "md:[direction:rtl] md:*:[direction:ltr]",
+						]}
+					>
+						<div class="reveal relative md:col-span-4">
+							<div class:list={["photo-mat transition-transform duration-700 ease-bounce hover:rotate-0", t.rotate]}>
+								<Image
+									src={t.photo}
+									alt={t.alt}
+									widths={[480, 800]}
+									sizes="(max-width: 768px) 85vw, 30vw"
+									class="aspect-[4/5] w-full object-cover"
+								/>
+							</div>
+							<span
+								class:list={[
+									"absolute -bottom-4 font-hand text-2xl text-clay",
+									i % 2 === 1 ? "-left-2 rotate-[3deg]" : "-right-2 rotate-[-3deg]",
+								]}
+							>
+								{t.note}
+							</span>
+						</div>
+						<blockquote class="reveal md:col-span-7 md:col-start-6" style="--reveal-delay: 0.12s">
+							<Doodle name="burst" class="h-7 w-7 text-butter" />
+							<p class="mt-6 font-display text-2xl leading-snug font-normal tracking-tight text-balance sm:text-[2.1rem]">
+								“{t.quote}”
+							</p>
+							<figcaption class="mt-7 font-mono text-[11px] tracking-[0.28em] text-ink-soft uppercase">
+								— {t.name}
+							</figcaption>
+						</blockquote>
+					</figure>
+				))
+			}
+		</section>
+
+		<!-- cta -->
+		<section class="mt-24 bg-cream sm:mt-32">
+			<div class="mx-auto max-w-4xl px-5 py-24 text-center sm:px-10 sm:py-32">
+				<h2 class="reveal font-display text-4xl leading-tight font-medium tracking-tight sm:text-6xl">
+					Want to work together?
+				</h2>
+				<p class="reveal mt-6 font-hand text-2xl text-clay sm:text-3xl" style="--reveal-delay: 0.08s">
+					your kind words could be up here next
+				</p>
+				<div class="reveal mt-10" style="--reveal-delay: 0.16s">
+					<Button href="/#contact">Contact me</Button>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>

@@ -1,0 +1,41 @@
+---
+import Doodle from "./Doodle.astro";
+
+interface Props {
+	items: string[];
+	class?: string;
+}
+const { items, class: className = "" } = Astro.props;
+---
+
+<div
+	class:list={["overflow-hidden border-y border-line py-4 select-none", className]}
+	aria-hidden="true"
+>
+	<div class="flex w-max animate-marquee items-center gap-8 pr-8">
+		{
+			[0, 1].map(() => (
+				<div class="flex items-center gap-8">
+					{items.map((item, i) => (
+						<>
+							<span
+								class:list={[
+									"whitespace-nowrap",
+									i % 2 === 0
+										? "font-display text-2xl font-medium tracking-tight sm:text-3xl"
+										: "font-hand text-2xl text-clay sm:text-3xl",
+								]}
+							>
+								{item}
+							</span>
+							<Doodle
+								name={i % 3 === 0 ? "star" : i % 3 === 1 ? "heart" : "burst"}
+								class="h-5 w-5 shrink-0 text-butter"
+							/>
+						</>
+					))}
+				</div>
+			))
+		}
+	</div>
+</div>
