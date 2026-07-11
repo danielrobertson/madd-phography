@@ -304,7 +304,7 @@ const sessionTypes = [
 
 		<!-- =========================== contact =========================== -->
 		<section class="mx-auto max-w-7xl px-5 py-24 sm:px-10 sm:py-36">
-			<div class="grid gap-14 md:grid-cols-2 md:gap-10">
+			<div id="contact" class="grid scroll-mt-16 gap-14 md:grid-cols-2 md:gap-10">
 				<div>
 					<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">say hello</p>
 					<h2 class="reveal mt-5 font-display text-5xl leading-[1.02] font-medium tracking-tight sm:text-7xl" style="--reveal-delay: 0.08s">
@@ -333,8 +333,8 @@ const sessionTypes = [
 				</div>
 
 				<form
-					id="contact"
-					class="reveal scroll-mt-28 rounded-[2rem] bg-sand/60 p-2 sm:scroll-mt-16"
+					id="contact-form"
+					class="reveal rounded-[2rem] bg-sand/60 p-2"
 					style="--reveal-delay: 0.15s"
 				>
 					<div class="space-y-7 rounded-[calc(2rem-0.5rem)] bg-paper px-6 py-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)] sm:px-10">
@@ -421,7 +421,7 @@ const sessionTypes = [
 	});
 
 	// no backend yet: hand the enquiry off as a prefilled email
-	const form = document.getElementById("contact") as HTMLFormElement | null;
+	const form = document.getElementById("contact-form") as HTMLFormElement | null;
 	form?.addEventListener("submit", (e) => {
 		e.preventDefault();
 		const data = new FormData(form);
