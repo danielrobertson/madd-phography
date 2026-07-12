@@ -2,16 +2,29 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import {
+	OG_IMAGE,
+	OG_IMAGE_ALT,
+	SITE_DESCRIPTION,
+	SITE_NAME,
+	SITE_TITLE,
+} from "../consts";
 
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
 }
 
 const {
-	title = "Madd Photography",
-	description = "Madd Photography captures real connection — the laughter, movement, and in-between moments. Wedding and lifestyle photography based in DFW.",
+	title = SITE_TITLE,
+	description = SITE_DESCRIPTION,
+	image = OG_IMAGE,
 } = Astro.props;
+
+// crawlers and scrapers need absolute URLs — Astro.site comes from astro.config.mjs
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -23,9 +36,26 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#faf6ed" />
+		<link rel="canonical" href={canonical} />
+
+		<meta property="og:site_name" content={SITE_NAME} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={OG_IMAGE_ALT} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
+
 		<link
 			rel="preload"
 			href="/fonts/Kage-Medium.woff2"
