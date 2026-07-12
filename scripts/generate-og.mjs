@@ -1,7 +1,7 @@
 // Renders public/og.jpg (1200x630) — the social share card.
 // Uses a real browser so the card can use the site's own fonts and tokens.
 // Run: node scripts/generate-og.mjs
-import playwright from "../scrape/node_modules/playwright-core/index.js";
+import playwright from "playwright-core";
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";

@@ -1,0 +1,17 @@
+diff --git a/dist/core/logger/impls/json.js b/dist/core/logger/impls/json.js
+index 5ecae663f13152a2c3b27afd90efa14ed53db0a0..90f472e70d49817ee763a8a73e14280665e5a070 100644
+--- a/dist/core/logger/impls/json.js
++++ b/dist/core/logger/impls/json.js
+@@ -8,6 +8,12 @@ function jsonLoggerDestination(config = {}) {
+   const { pretty = false, level = "info" } = config;
+   return {
+     write(event) {
++      // workerd has no `process`; without this guard the logger throws and masks
++      // the real dev-server error behind "process is not defined"
++      if (typeof process === "undefined") {
++        console.error(event.message);
++        return;
++      }
+       let dest = process.stderr;
+       if (levels[event.level] < levels["error"]) {
+         dest = process.stdout;

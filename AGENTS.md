@@ -54,6 +54,9 @@ Gotchas learned the hard way:
 
 ## Development
 
+**This project uses pnpm** — not npm. (`scrape/` is a standalone archive with its own
+npm lockfile; leave it alone.)
+
 When starting the dev server, use background mode:
 
 ```
@@ -61,6 +64,20 @@ astro dev --background
 ```
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+
+The astro JSON logger is patched (`patches/astro.patch`, registered under
+`pnpm.patchedDependencies`) to guard `typeof process === "undefined"` — without it the
+logger crashes inside workerd and masks every real dev-server error. Edit it with
+`pnpm patch astro`, never by hand in `node_modules`.
+
+## Social / SEO
+
+The canonical host lives in two places, both of which change when a real domain is
+bought: `site` in `astro.config.mjs` and `SITE_URL` in `src/consts.ts`. Titles,
+descriptions, and og/twitter tags are centralized in `src/consts.ts` + `Layout.astro`.
+
+`public/og.jpg` (1200x630 share card) is generated — `pnpm og-image` re-renders it via
+headless Chrome using the site's own fonts and tokens. Requires system Chrome.
 
 ## Documentation
 
