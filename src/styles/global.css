@@ -133,7 +133,15 @@
 	}
 
 	html {
-		scroll-behavior: smooth;
+		/* light-only site: keeps native form controls (select popups, scrollbars)
+		   light even when the OS is in dark mode */
+		color-scheme: light;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
 	}
 
 	body {
@@ -143,6 +151,22 @@
 		font-weight: 380;
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	a,
+	button,
+	input,
+	select,
+	textarea,
+	label {
+		touch-action: manipulation;
+	}
+
+	/* branded focus ring; form fields opt out via outline-none + focus:border-clay */
+	:focus-visible {
+		outline: 2px solid var(--color-clay);
+		outline-offset: 4px;
 	}
 }
 

@@ -11,7 +11,7 @@ const { href, variant = "solid", class: className = "" } = Astro.props;
 <a
 	href={href}
 	class:list={[
-		"group inline-flex items-center gap-3 rounded-full py-2.5 pr-2.5 pl-6 font-mono text-[12px] font-bold tracking-[0.18em] uppercase transition-all duration-500 ease-fluid active:scale-[0.98]",
+		"group inline-flex items-center gap-3 rounded-full py-2.5 pr-2.5 pl-6 font-mono text-[12px] font-bold tracking-[0.18em] uppercase transition-[background-color,border-color,color,transform] duration-500 ease-fluid active:scale-[0.98]",
 		variant === "solid"
 			? "bg-ink text-paper hover:bg-clay"
 			: "border-[1.5px] border-ink text-ink hover:border-clay hover:text-clay",

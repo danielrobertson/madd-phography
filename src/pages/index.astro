@@ -32,7 +32,7 @@ const tiles = [
 		alt: "Maddie crouching in her studio against a big blank wall",
 		eyebrow: "get to know me",
 		title: "Meet Maddie",
-		note: "that's me!",
+		note: "that’s me!",
 		pos: "object-[50%_72%]",
 	},
 	{
@@ -65,7 +65,7 @@ const sessionTypes = [
 ---
 
 <Layout>
-	<main>
+	<main id="main">
 		<!-- ============================== hero ============================== -->
 		<section class="relative mx-auto max-w-6xl px-5 pt-16 pb-14 text-center sm:px-10 sm:pt-24 sm:pb-20">
 			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">
@@ -83,7 +83,7 @@ const sessionTypes = [
 				class="reveal pointer-events-none absolute top-24 right-2 hidden rotate-6 lg:block"
 				style="--reveal-delay: 0.4s"
 			>
-				<span class="font-hand text-2xl text-clay">...and a lil funky</span>
+				<span class="font-hand text-2xl text-clay">…and a lil funky</span>
 				<Doodle name="arrow-curl" class="mx-auto mt-1 h-10 w-10 -scale-x-100 rotate-12 text-clay" />
 			</div>
 			<Doodle
@@ -93,7 +93,7 @@ const sessionTypes = [
 			/>
 
 			<div class="reveal mt-10 flex flex-wrap items-center justify-center gap-4" style="--reveal-delay: 0.16s">
-				<Button href="/#contact">Let's work together</Button>
+				<Button href="/#contact">Let’s work together</Button>
 				<Button href="/galleries" variant="outline">See the galleries</Button>
 			</div>
 		</section>
@@ -120,6 +120,7 @@ const sessionTypes = [
 									widths={[480, 800, 1200]}
 									sizes="(max-width: 768px) 74vw, 26vw"
 									loading="eager"
+									fetchpriority={i === 0 ? "high" : "auto"}
 									class="h-full w-full object-cover transition-transform duration-1000 ease-fluid group-hover:scale-[1.04]"
 								/>
 							</div>
@@ -146,7 +147,7 @@ const sessionTypes = [
 					</h2>
 					<span
 						class="absolute -right-4 -bottom-8 rotate-[-4deg] font-hand text-3xl text-clay sm:-right-16 sm:text-5xl"
-						>...but make it funky</span
+						>…but make it funky</span
 					>
 				</div>
 				<p
@@ -182,7 +183,7 @@ const sessionTypes = [
 							class="aspect-[4/5] w-full object-cover"
 						/>
 					</div>
-					<span class="absolute -top-5 -right-3 rotate-12 font-hand text-3xl text-clay">hi, it's me</span>
+					<span class="absolute -top-5 -right-3 rotate-12 font-hand text-3xl text-clay">hi, it’s me</span>
 					<Doodle name="crown" class="absolute -top-9 left-6 h-10 w-10 -rotate-12 text-butter" />
 				</div>
 				<div class="md:col-span-6 md:col-start-7">
@@ -198,7 +199,7 @@ const sessionTypes = [
 						I create a comfortable, fun experience that lets genuine emotion shine, and I
 						deliver <strong class="font-semibold text-ink">unlimited edited images</strong> so you
 						never have to choose between favorite moments. From couples and families to milestones and weddings —
-						timeless, heartfelt photos you'll love looking back on for years.
+						timeless, heartfelt photos you’ll love looking back on for years.
 					</p>
 					<div class="reveal mt-10" style="--reveal-delay: 0.3s">
 						<Button href="/about" variant="outline">Get to know me</Button>
@@ -228,7 +229,7 @@ const sessionTypes = [
 										tile.pos,
 									]}
 								/>
-								<span class="absolute right-4 bottom-4 rotate-[-3deg] font-hand text-2xl text-paper opacity-0 transition-all duration-500 ease-bounce group-hover:opacity-100 drop-shadow-[0_1px_8px_rgba(44,35,24,0.5)]">
+								<span class="absolute right-4 bottom-4 rotate-[-3deg] font-hand text-2xl text-paper opacity-0 transition-opacity duration-500 ease-bounce group-hover:opacity-100 drop-shadow-[0_1px_8px_rgba(44,35,24,0.5)]">
 									{tile.note}
 								</span>
 							</div>
@@ -308,13 +309,13 @@ const sessionTypes = [
 				<div>
 					<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">say hello</p>
 					<h2 class="reveal mt-5 font-display text-5xl leading-[1.02] font-medium tracking-tight sm:text-7xl" style="--reveal-delay: 0.08s">
-						Let's work <span class="relative inline-block">
+						Let’s work <span class="relative inline-block">
 							together
 							<Doodle name="arrow-swoosh" class="absolute top-1/2 -right-16 hidden h-12 w-12 -translate-y-1/2 text-clay lg:block" />
 						</span>
 					</h2>
 					<p class="reveal mt-8 max-w-md text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.16s">
-						Tell me everything — the vibe, the people, the plan (or lack of one). I'll get back to
+						Tell me everything — the vibe, the people, the plan (or lack of one). I’ll get back to
 						you with availability and next steps.
 					</p>
 					<div class="reveal mt-10 space-y-3 font-mono text-[11px] tracking-[0.22em] text-ink-soft uppercase" style="--reveal-delay: 0.22s">
@@ -355,6 +356,7 @@ const sessionTypes = [
 									type="email"
 									name="email"
 									autocomplete="email"
+									spellcheck="false"
 									required
 									class="mt-2 w-full border-b border-line bg-transparent pb-2 text-ink transition-colors duration-500 ease-fluid outline-none focus:border-clay"
 								/>
@@ -395,7 +397,7 @@ const sessionTypes = [
 						</label>
 						<button
 							type="submit"
-							class="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-ink py-2.5 pr-2.5 pl-6 font-mono text-[12px] font-bold tracking-[0.18em] text-paper uppercase transition-all duration-500 ease-fluid hover:bg-clay active:scale-[0.98]"
+							class="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-ink py-2.5 pr-2.5 pl-6 font-mono text-[12px] font-bold tracking-[0.18em] text-paper uppercase transition-[background-color,transform] duration-500 ease-fluid hover:bg-clay active:scale-[0.98]"
 						>
 							Send message
 							<span class="flex h-8 w-8 items-center justify-center rounded-full bg-paper/15 transition-transform duration-500 ease-bounce group-hover:-translate-y-[1px] group-hover:translate-x-1 group-hover:scale-105">

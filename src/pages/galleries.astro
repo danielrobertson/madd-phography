@@ -45,7 +45,7 @@ const photos = [
 ---
 
 <Layout title="Galleries — Madd Photography">
-	<main>
+	<main id="main">
 		<!-- hero -->
 		<section class="relative mx-auto max-w-6xl px-5 pt-16 pb-10 text-center sm:px-10 sm:pt-24">
 			<p class="reveal font-mono text-[11px] tracking-[0.32em] text-clay uppercase">✳ my works ✳</p>
@@ -56,7 +56,7 @@ const photos = [
 				The <Scribble kind="underline" color="var(--color-butter)">good</Scribble> stuff
 			</h1>
 			<p class="reveal mx-auto mt-8 max-w-md text-lg leading-relaxed text-ink-soft" style="--reveal-delay: 0.16s">
-				Real sessions, real people, zero forced smiles. Filter by the kind of magic you're after.
+				Real sessions, real people, zero forced smiles. Filter by the kind of magic you’re after.
 			</p>
 		</section>
 
@@ -137,6 +137,7 @@ const photos = [
 			if (busy || btn.getAttribute("aria-pressed") === "true") return;
 			const filter = btn.dataset.filter;
 			buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+			history.replaceState(null, "", filter === "all" ? location.pathname : `?filter=${filter}`);
 			const shows = (el: HTMLElement) => filter === "all" || el.dataset.tag === filter;
 
 			if (reduced) {
@@ -204,4 +205,15 @@ const photos = [
 			setTimeout(() => (busy = false), Math.max(620, 100 + entering.length * 50 + 460));
 		});
 	});
+
+	// deep-link: honor ?filter= on load (no animation, just the filtered grid)
+	const initial = new URLSearchParams(location.search).get("filter");
+	if (initial && initial !== "all" && [...buttons].some((b) => b.dataset.filter === initial)) {
+		buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filter === initial)));
+		items.forEach((el) => {
+			const show = el.dataset.tag === initial;
+			el.classList.toggle("hidden", !show);
+			if (show) el.classList.add("is-visible");
+		});
+	}
 </script>
