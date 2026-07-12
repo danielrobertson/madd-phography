@@ -13,6 +13,7 @@ const asDataUri = async (path, mime) =>
 const photo = await asDataUri("src/assets/photos/home-wide.jpg", "image/jpeg");
 const kage = await asDataUri("public/fonts/Kage-Medium.woff2", "font/woff2");
 const mono = await asDataUri("public/fonts/SpaceMono-400.woff2", "font/woff2");
+const monoBold = await asDataUri("public/fonts/SpaceMono-700.woff2", "font/woff2");
 
 // star lifted from src/components/Doodle.astro
 const STAR =
@@ -23,6 +24,7 @@ const html = `<!doctype html>
 <style>
   @font-face { font-family: "Kage"; src: url(${kage}) format("woff2"); font-weight: 500; }
   @font-face { font-family: "Space Mono"; src: url(${mono}) format("woff2"); font-weight: 400; }
+  @font-face { font-family: "Space Mono"; src: url(${monoBold}) format("woff2"); font-weight: 700; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { width: 1200px; height: 630px; display: flex; flex-direction: column; background: #faf6ed; }
   .photo { flex: 1; position: relative; overflow: hidden; }
@@ -35,9 +37,19 @@ const html = `<!doctype html>
     font-family: "Kage", serif; font-weight: 500; font-size: 68px; line-height: 1;
     color: #2c2318; letter-spacing: -0.01em;
   }
-  p {
+  .tagline {
     font-family: "Space Mono", monospace; font-size: 19px; letter-spacing: 0.18em;
     text-transform: uppercase; color: #2c2318; opacity: 0.62; margin-top: 14px;
+  }
+  .cta { display: flex; align-items: center; gap: 26px; }
+  /* mirrors .sticker in src/styles/global.css */
+  .sticker {
+    display: inline-flex; align-items: center; gap: 0.6ch;
+    font-family: "Space Mono", monospace; font-weight: 700; font-size: 23px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #faf6ed; background: #bc5433;
+    border: 2.5px solid #2c2318; border-radius: 999px; padding: 17px 34px;
+    box-shadow: 5px 5px 0 0 #2c2318; transform: rotate(-1.8deg);
   }
   svg { flex: none; color: #bc5433; }
 </style>
@@ -45,10 +57,13 @@ const html = `<!doctype html>
 <div class="band">
   <div>
     <h1>Madd Photography</h1>
-    <p>Weddings &amp; Lifestyle &middot; DFW</p>
+    <div class="tagline">Weddings &amp; Lifestyle &middot; DFW</div>
   </div>
-  <svg width="96" height="96" viewBox="0 0 48 48" fill="none" stroke="currentColor"
-       stroke-width="2.2" stroke-linejoin="round"><path d="${STAR}" /></svg>
+  <div class="cta">
+    <svg width="72" height="72" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+         stroke-width="2.2" stroke-linejoin="round"><path d="${STAR}" /></svg>
+    <div class="sticker">Book your date <span>&rarr;</span></div>
+  </div>
 </div>`;
 
 // system Chrome — playwright's bundled browsers aren't installed in this repo
